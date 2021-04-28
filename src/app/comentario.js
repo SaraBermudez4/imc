@@ -1,4 +1,5 @@
 const axios = require('axios')
+import {fetch as fetchPolyfill} from 'whatwg-fetch' 
 export default class Comentario {
     obtenerComentarios() {
         return []
