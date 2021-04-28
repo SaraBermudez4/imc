@@ -1,11 +1,12 @@
 import Comentario from './comentario'
-
+import './style.css'
+llamadoComentariosAsync()
 let micomentario = new Comentario()
 async function llamadoComentariosAsync() {
     let data = await micomentario.asyncAxiosObtenerComentarios()
     console.log(data)
 }
-llamadoComentariosAsync()
+
 async function llamarComentarios() {
     try {
         console.log("Se llamó la promesa")

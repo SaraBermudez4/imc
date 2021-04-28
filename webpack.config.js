@@ -1,16 +1,35 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin')
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
-    entry: './src/app/index.js',
-    mode: 'development',
+    entry: [
+        '@babel/polyfill',
+        './src/app/index.js'],
+    mode: 'production',
     //whatch : true,
-    devServer : {
-        port : 9000,
-        open : true
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+            }
+        ]
     },
     output: {
-        filename: 'app.bundle.js',
+        filename: 'js/app.bundle.js ',
         path: path.resolve(__dirname, 'build'),
+    },
+    devServer: {
+        port: 9000,
+        open: true
     },
     plugins: [
         new HTMLWebpackPlugin({
@@ -23,6 +42,10 @@ module.exports = {
                 removeStyleLinkTypeAttributes: true,
                 useShortDoctype: true
             }
-        })
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'css/app.bundle.css'
+        }),
+
     ]
 };
